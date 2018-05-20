@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<h1>Update post</h1>
+<form>
+     <input name="csrfmiddlewaretoken" value={{cs}} type="hidden">
+    <div class="form-group">
+    <label for="exampleFormControlSelect1">Post ID</label>
+    <select class="form-control col-md-5" id="exampleFormControlSelect1">
+        {%for post in posts%}
+      <option>{{post.id}}</option>
+        {%endfor%}
+    </select>
+
+  </div>
+
+     <div class="form-group">
+         <label for="exampleFormControlTextarea1">Update your Post</label>
+         <textarea class="form-control col-md-5" name="text" id="exampleFormControlTextarea1" rows="3"></textarea>
+     </div>
+
+</form>
+<button onclick="send()" class="btn btn-dark col-md-2">Update</button>
+</body>
+<script>
+    function send() {
+        var id = document.getElementById('exampleFormControlSelect1').value;
+        var about = document.getElementById('exampleFormControlTextarea1');
+        var data = {
+                about: about.value        };
+
+        $.ajax({
+            type: "PUT",
+            url: "/api/v.2/posts/get/"+id+'/',
+            data: JSON.stringify(data),
+            async: false,
+            success: function(){},
+            dataType: "json",
+            contentType : "application/json"
+            });
+        //location.href = '/api/v.2/posts/get/';
+    }
+</script>
+</html>

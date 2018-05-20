@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+<h1>Creating</h1>
+<center>
+<form>
+     <input name="csrfmiddlewaretoken" value={{cs}} type="hidden">
+    <div class="form-group">
+    <label for="exampleInputText">Name</label>
+    <input type="text" maxlength="50"  name="username" class="form-control col-md-4" id="exampleInputText"  placeholder="Enter name">
+  </div>
+    <div class="form-group">
+    <label for="exampleFormControlTextarea1">About</label>
+        <textarea type="text" maxlength="2000" name="about" class="form-control col-md-4" id="exampleFormControlTextarea1"  placeholder="Enter information about yourself"> </textarea>
+  </div>
+</form>
+     <button onclick="send()" class="btn btn-dark col-md-2">Creating</button>
+</center>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script >
+function send() {
+        var now = new Date();
+        var name = document.getElementById('exampleInputText');
+        var about = document.getElementById('exampleFormControlTextarea1');
+        var data = {
+                username: name.value,
+                about: about.value};
+
+        $.ajax({
+            type: "POST",
+            url: "/api/v.2/users/get/",
+            data: JSON.stringify(data),
+            async: false,
+            success: function(){},
+            dataType: "json",
+            contentType : "application/json"
+            });
+        location.href = '/api/v.2/users/get/'
+    }
+</script>
+</html>
